@@ -1,0 +1,163 @@
+body{
+
+background: #4E4E4E;
+}
+#top{
+	margin-top: 3%;
+	line-height: 1;
+}
+.underline{
+	border-bottom: 1px solid #FFFFFF;
+	line-height: 0.75;
+}
+#top h1{
+
+	font-family: 'Josefin Sans', sans-serif;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
+	font-size: 48px;	
+	color: #FFFFFF;
+	line-height: 1;
+}
+#video_container{
+	padding: 2%;
+	/*margin-left: 2%;*/
+}
+#controles {
+	margin-left: auto;
+	margin-right: auto;
+	background: white;
+	padding: 0%;
+	margin-top: 0%;
+	opacity: 0.5;
+	align-items: center;
+}
+#botones{
+	padding: 0%;
+}
+#controles button{
+	align-content: center;
+	line-height: 50%;
+}
+#controles button i{
+	align-content: center;
+}
+#botones2{
+	margin-left: 2%;
+	float: right;
+	align-content: right;
+	
+}
+#controles .progress{
+	padding: 0%;
+}
+.input-range{
+	display: none;
+	position: absolute;
+	width: 10%;
+}
+.progress{
+	cursor: pointer;
+	align-items: center;
+}
+.progress span{
+	color: black;
+	font-weight: bold;
+}
+#opciones_container{
+	background-color: white;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	opacity: 0.5;
+	align-items: center;
+	background-clip: content-box;
+}
+
+#opciones_container h1{
+	font-family: 'Josefin Sans', sans-serif;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
+	font-size: 48px;	
+	color: black;
+	line-height: 1;
+}
+#opciones_container p{
+	font-family: 'Josefin Sans', sans-serif;
+	font-style: normal;
+	font-weight: 300;
+	line-height: normal;
+	font-size: 24px;	
+	color: black;
+	line-height: 1;
+}
+#contenido_opciones{
+	margin: 3%;
+}
+canvas{
+	position:absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 3%;
+    width: 100%;
+    height: 75%;
+}
+video::cue {
+  background: none
+  color: white;
+}
+
+#play-video {
+  	z-index: 10;
+}
+#play_svg {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translateY(-50%) translateX(-50%);
+  transform: translateY(-50%) translateX(-50%);
+}
+
+/*PIANO*/
+#keyboard {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.key {
+    border: 1px solid #ccc;
+    border-radius: 0.7rem;
+    text-align: center;
+    float: left;
+    text-transform: uppercase;
+    transition: margin 150ms ease-in-out;
+    font-weight: bold;
+    cursor: pointer;
+}
+.blanca{
+	background: #fff;
+	color: #000;
+	width: 4%;
+	margin-top: 0.5%;
+}
+.negra{
+	background: #000;
+	color: #fff;
+	width: 3%;
+}
+
+.key span {
+    font-size: 1.8rem;
+    display: inline-block;
+    margin-top: 1rem;
+}
+
+.playing {
+    background: #ddd;
+    margin-top: 1%;
+}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Piano Champion</title>
+	 <meta charset="utf-8">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://cdn.dashjs.org/latest/dash.all.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+	
+	
+</head>
+<body>
+	<div class="container-fluid">
+		<div id ="top" class="col-sm-12 col-md-12 text-center">
+			<h1 id="logo" class="underline">Piano Champion</h1>
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div id="video_container"  class="col-sm-7 col-md-7">
+
+				<canvas id="canvas">
+					
+				</canvas>
+				
+				<video id="video" width="100%" class="mb-0" poster="imagenes/thumbnail2.jpg " ontimeupdate="updateProgress()" >
+					<!--<source src="output/output.mpd" type="application/dash+xml">
+					<source src="hls/hls.m3u8" type="application/x-mpegURL">-->
+					<track kind="subtitles" src="lyrics.vtt" default>
+					Lo sentimos, tu navegador no soporta este tipo de vídeo.
+
+				</video>
+
+				<div id="controles" class="col-sm-12 col-md-12 row align-middle">
+					<div id="botones">
+						<button id="play" class="controles_video btn" onclick="playVid()" type="button"><i class="material-icons text-center">play_arrow</i></button>
+						<button id="pause" class="controles_video btn" onclick="pauseVid()" type="button"><i class="material-icons">pause</i></button><br>
+						
+					</div>
+
+					<div class="progress col-sm-9 col-md-9 ">
+
+  						<div class="progress-bar bg-info progress-bar-striped progress-bar-animated text-center">
+  							<span id="min_sec"></span>
+  							<span width="100%" style="background: black;"></span>
+  						</div>
+					</div> 
+					<div id="botones2" class="row" >
+						<div id="control_volumen">
+							<button id="volume" class="controles_video btn" type="button"><i class="material-icons text-center">volume_up</i></button>
+							<input id="volume_range" class="input-range" type="range" step="0.1" value="1" min="0" max="1" onchange="cambiar_volumen(this.value)" >
+						</div>
+						<div id="control_velocidad">
+							<button id="timer" class="controles_video btn" type="button"><i class="material-icons text-center">timer</i></button>
+							<input id="velocity_range" class="input-range" type="range" step="0.1" value="1" min="0" max="1" onchange="cambiar_velocidad(this.value)">
+						</div>
+						
+						
+					</div>
+
+				</div>
+				
+				<a id="play-video" href="#">
+				   <svg version="1.1" id="play_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" height="100px" width="100px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+				      <path class="stroke-solid" fill="none" stroke="black"  d="M49.9,2.5C23.6,2.8,2.1,24.4,2.5,50.4C2.9,76.5,24.7,98,50.3,97.5c26.4-0.6,47.4-21.8,47.2-47.7
+				         C97.3,23.7,75.7,2.3,49.9,2.5"/>
+				      <path class="icon" fill="black" d="M38,69c-1,0.5-1.8,0-1.8-1.1V32.1c0-1.1,0.8-1.6,1.8-1.1l34,18c1,0.5,1,1.4,0,1.9L38,69z"/>
+				   </svg>
+				</a>
+				
+			</div>
+			<div id="opciones_container" class="col-sm-3 col-md-3">
+				<div id="contenido_opciones">
+					<h1>Sección</h1>
+					<p><input id="Intro" type="checkbox" name="seccion" value="intro"> Intro</p>
+					<p><input id="Estrofa1" type="checkbox" name="seccion" value="Estrofa1"> Estrofa 1</p>
+					<p><input id="Estribillo1" type="checkbox" name="seccion" value="Estribillo1"> Estribillo 1</p>
+					<p><input id="Estrofa2" type="checkbox" name="seccion" value="Estrofa2"> Estrofa 2</p>
+					<p><input id="Estribillo2" type="checkbox" name="seccion" value="Estribillo1"> Estribillo 1</p>
+					<h1>Más opciones</h1>
+					<p><input id="loop" type="checkbox" name="loop" value="loop" checked> Loop</p>
+					<p><input id="demo" type="checkbox" name="demo" value="demo"> Modo Demo</p>
+					<p><input id="practica" type="checkbox" name="practica" value="practica"> Modo Práctica</p>
+				</div>
+			</div>
+			
+			
+		</div>
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div id="keyboard" class="col-md-11"></div>
+		</div>
+
+	</div>
+</body>
+</html>
+
+<script>
+	var vid = document.getElementById("video");
+</script>
+<script src="js/controles_video.js"></script> 
+<script src="js/partitura.js"></script> 
+<script src="js/piano.js"></script>4
+<video id="video"></video>
+<script>
+  var video = document.getElementById('video');
+  if(Hls.isSupported()) {
+    var hls = new Hls();
+    hls.loadSource('hls/hls.m3u8');
+    hls.attachMedia(video);
+ }
+ // hls.js is not supported on platforms that do not have Media Source Extensions (MSE) enabled.
+ // When the browser has built-in HLS support (check using `canPlayType`), we can provide an HLS manifest (i.e. .m3u8 URL) directly to the video element throught the `src` property.
+ // This is using the built-in support of the plain video element, without using hls.js.
+ // Note: it would be more normal to wait on the 'canplay' event below however on Safari (where you are most likely to find built-in HLS support) the video.src URL must be on the user-driven
+ // white-list before a 'canplay' event will be emitted; the last video event that can be reliably listened-for when the URL is not on the white-list is 'loadedmetadata'.
+  else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = 'hls/hls.m3u8';
+  }else{
+	video.src = 'output/output.mpd';
+  }
+
+
+</script>
+<script type="text/javascript">
+
+	/*Loop*/
+	$("#loop").change(function() {
+	    if(this.checked) {
+	        $("#video").attr('loop', true);
+	    }else{
+	    	vid.attr('loop', false);
+	    }
+	});
+
+
+	/*SECCIONES*/
+	var tracks = vid.textTracks;
+	var lyrics = tracks[0];
+	var notas = tracks[1];
+	var cues_lyrics = lyrics.cues;
+	
+	/*Control de secciones*/
+    lyrics.oncuechange = function (){
+		// "this" is a textTrack
+		var cue = this.activeCues[0]; // assuming there is only one	active cue
+		if(cue !=null){
+			switch(cue.id){
+			case 'Estrofa1':
+				if($("#Intro").prop('checked')){
+					if($("#loop").prop('checked')){
+						vid.currentTime = 1;
+					}else{
+						vid.pause();
+					}
+					 
+				}
+			break;
+			
+			case 'Estribillo1':
+				if($("#Estrofa1").prop('checked')){ 
+					if($("#loop").prop('checked')){
+						vid.currentTime = 79;
+					}else{
+						vid.pause();
+					}
+				}
+			break;
+		}
+		}
+		
+		// do something
+	}
+	setInterval(function() {
+	var currentQualityIndex =hls.levels¿;
+	// set max quality
+	console.log("---------"+currentQualityIndex);
+	},1000);
+
+
+</script>
